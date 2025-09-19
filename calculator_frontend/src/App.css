@@ -1,104 +1,193 @@
-/* CSS Variables for Theme Management */
+/* Ocean Professional Theme Variables */
 :root {
-  /* Light theme colors */
-  --bg-primary: #ffffff;
-  --bg-secondary: #f8f9fa;
-  --text-primary: #282c34;
-  --text-secondary: #61dafb;
-  --border-color: #e9ecef;
-  --button-bg: #007bff;
-  --button-text: #ffffff;
+  --primary: #2563EB;   /* Blue */
+  --secondary: #F59E0B; /* Amber */
+  --error: #EF4444;
+  --background: #f9fafb;
+  --surface: #ffffff;
+  --text: #111827;
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.06);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
+  --radius: 16px;
+  --radius-sm: 10px;
 }
 
-[data-theme="dark"] {
-  /* Dark theme colors */
-  --bg-primary: #1a1a1a;
-  --bg-secondary: #282c34;
-  --text-primary: #ffffff;
-  --text-secondary: #61dafb;
-  --border-color: #404040;
-  --button-bg: #0056b3;
-  --button-text: #ffffff;
+/* Page baseline */
+* { box-sizing: border-box; }
+
+html, body, #root {
+  height: 100%;
 }
 
-.App {
-  text-align: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  min-height: 100vh;
-  transition: background-color 0.3s ease, color 0.3s ease;
+body {
+  margin: 0;
+  background: linear-gradient(180deg, rgba(37,99,235,0.08), rgba(249,250,251,1) 40%);
+  color: var(--text);
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* App Container */
+.app {
+  min-height: 100%;
+  display: grid;
+  place-items: center;
+  padding: 32px 16px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+/* Calculator Card */
+.calculator {
+  width: 100%;
+  max-width: 380px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+  border: 1px solid rgba(17,24,39,0.06);
 }
 
-.App-header {
-  background-color: var(--bg-secondary);
-  min-height: 100vh;
+/* Header / Brand */
+.calc-header {
+  padding: 16px 20px;
+  background: linear-gradient(120deg, rgba(37,99,235,0.08), rgba(245,158,11,0.06));
+  border-bottom: 1px solid rgba(17,24,39,0.06);
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: var(--text-primary);
-  transition: background-color 0.3s ease;
-  position: relative;
+  gap: 10px;
 }
 
-.App-link {
-  color: var(--text-secondary);
-  transition: color 0.3s ease;
+.brand-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--primary);
+  box-shadow: 0 0 0 4px rgba(37,99,235,0.15);
 }
 
-.theme-toggle {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: var(--button-bg);
-  color: var(--button-text);
-  border: none;
-  border-radius: 8px;
-  padding: 10px 20px;
+.calc-title {
+  margin: 0;
   font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #1f2937;
+  font-weight: 700;
 }
 
-.theme-toggle:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+/* Display */
+.display {
+  padding: 24px 20px 12px 20px;
+  background: linear-gradient(180deg, #ffffff, #f7fafc);
+}
+
+.display-screen {
+  background: #0b1220;
+  color: #e5e7eb;
+  border-radius: var(--radius-sm);
+  padding: 18px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -2px 6px rgba(0,0,0,0.35);
+  font-variant-numeric: tabular-nums;
+}
+
+.display-history {
+  min-height: 20px;
+  color: #93a3b8;
+  font-size: 14px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
   opacity: 0.9;
 }
 
-.theme-toggle:active {
+.display-current {
+  margin-top: 6px;
+  font-size: 32px;
+  line-height: 1.2;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-weight: 700;
+  color: #e7eefc;
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  padding: 16px 20px 20px 20px;
+  background: linear-gradient(180deg, #ffffff, #f9fafb);
+}
+
+/* Buttons */
+.btn {
+  appearance: none;
+  border: 0;
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #111827;
+  background: #eef2ff;
+  box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255,255,255,0.6);
+  cursor: pointer;
+  transition: transform 120ms ease, box-shadow 200ms ease, background 200ms ease, color 200ms ease;
+  outline: none;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(17,24,39,0.08);
+}
+
+.btn:active {
   transform: translateY(0);
+  box-shadow: var(--shadow-sm);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Variants */
+.btn-operator {
+  background: linear-gradient(180deg, rgba(37,99,235,0.12), rgba(37,99,235,0.06));
+  color: #0b3ea8;
 }
 
-/* Responsive design for mobile */
-@media (max-width: 768px) {
-  .theme-toggle {
-    top: 10px;
-    right: 10px;
-    padding: 8px 16px;
-    font-size: 12px;
-  }
+.btn-operator.active {
+  background: linear-gradient(180deg, rgba(37,99,235,0.25), rgba(37,99,235,0.12));
+  color: #0a3186;
+  box-shadow: 0 0 0 2px rgba(37,99,235,0.18) inset;
+}
+
+.btn-equals {
+  background: linear-gradient(180deg, rgba(245,158,11,0.9), rgba(245,158,11,0.8));
+  color: #111827;
+}
+
+.btn-clear {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.btn-zero {
+  grid-column: span 2;
+}
+
+/* Accessibility focus */
+.btn:focus-visible {
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.35);
+}
+
+/* Footer hints */
+.calc-footer {
+  padding: 4px 16px 14px;
+  font-size: 12px;
+  color: #6b7280;
+  text-align: center;
+}
+
+kbd {
+  background: #f3f4f6;
+  padding: 2px 6px;
+  border-radius: 6px;
+  border: 1px solid #e5e7eb;
+  font-weight: 600;
+  font-size: 11px;
 }
