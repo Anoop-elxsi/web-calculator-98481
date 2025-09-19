@@ -54,6 +54,7 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
+  position: relative; /* allow absolute close button */
 }
 
 .brand-dot {
@@ -71,6 +72,43 @@ body {
   text-transform: uppercase;
   color: #1f2937;
   font-weight: 700;
+}
+
+/* Close button in header */
+.close-btn {
+  margin-left: auto;
+  margin-right: -4px;
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: #1f2a44;
+  font-size: 22px;
+  line-height: 1;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 160ms ease, color 160ms ease, box-shadow 180ms ease, transform 120ms ease;
+}
+
+.close-btn:hover {
+  background: rgba(37,99,235,0.10);
+  color: #0b3ea8;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(17,24,39,0.08);
+}
+
+.close-btn:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.close-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37,99,235,0.35);
 }
 
 /* Display */
@@ -190,4 +228,23 @@ kbd {
   border: 1px solid #e5e7eb;
   font-weight: 600;
   font-size: 11px;
+}
+
+/* Minimal reopen button when calculator is hidden */
+.reopen-btn {
+  appearance: none;
+  border: 1px solid rgba(17,24,39,0.08);
+  background: linear-gradient(180deg, rgba(37,99,235,0.10), rgba(37,99,235,0.06));
+  color: #0b3ea8;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: transform 120ms ease, box-shadow 200ms ease, background 200ms ease, color 200ms ease;
+}
+
+.reopen-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(17,24,39,0.08);
 }

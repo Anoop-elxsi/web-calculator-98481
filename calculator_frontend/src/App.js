@@ -33,6 +33,7 @@ function App() {
   const [previous, setPrevious] = useState(null);      // number
   const [operator, setOperator] = useState(null);      // '+','−','×','÷'
   const [history, setHistory] = useState('');          // small expression preview
+  const [isVisible, setIsVisible] = useState(true);    // visibility toggle for calculator
 
   // Derived number from current string
   const currentNumber = useMemo(() => {
@@ -117,6 +118,7 @@ function App() {
   useEffect(() => {
     const handler = (e) => {
       const { key } = e;
+      if (!isVisible) return; // ignore keyboard when hidden
       if (/\d/.test(key)) { onDigit(key); return; }
       if (key === '.') { onDigit('.'); return; }
       if (key === 'Escape') { onClear(); return; }
@@ -128,7 +130,7 @@ function App() {
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
-  }, [onDigit, onOperator, onEquals, onClear]);
+  }, [onDigit, onOperator, onEquals, onClear, isVisible]);
 
   useEffect(() => {
     updateHistory(previous, operator, null);
@@ -136,12 +138,36 @@ function App() {
 
   const opIs = (sym) => operator === sym;
 
+  // If hidden, render a minimal reopen control for usability
+  if (!isVisible) {
+    return (
+      <div className="app" role="application" aria-label="Ocean Professional Calculator">
+        <button
+          className="reopen-btn"
+          onClick={() => setIsVisible(true)}
+          aria-label="Reopen Calculator"
+          title="Reopen Calculator"
+        >
+          Open Calculator
+        </button>
+      </div>
+    );
+  }
+
   return (
     <div className="app" role="application" aria-label="Ocean Professional Calculator">
       <div className="calculator" aria-live="polite">
         <div className="calc-header">
           <div className="brand-dot" aria-hidden="true" />
           <h1 className="calc-title">Calculator</h1>
+          <button
+            className="close-btn"
+            onClick={() => setIsVisible(false)}
+            aria-label="Close Calculator"
+            title="Close"
+          >
+            ×
+          </button>
         </div>
 
         <div className="display" aria-label="calculator display">
