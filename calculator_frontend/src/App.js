@@ -1,5 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import './App.css';
+import './assets/common.css';
+import './assets/calc-2-8-5.css';
 
 /**
  * Basic arithmetic helpers with safe division and precision handling.
@@ -8,7 +10,7 @@ const ops = {
   '+': (a, b) => a + b,
   '−': (a, b) => a - b,
   '×': (a, b) => a * b,
-  '÷': (a, b) => b === 0 ? NaN : a / b,
+  '÷': (a, b) => (b === 0 ? NaN : a / b),
 };
 
 /**
@@ -24,9 +26,9 @@ function formatNumber(value) {
 
 /**
  * PUBLIC_INTERFACE
- * Calculator App - Ocean Professional themed.
- * - Central column layout with display and button grid.
- * - Supports +, −, ×, ÷ with instant evaluation and keyboard input.
+ * Calculator App - Ocean Professional with Figma fidelity.
+ * - Uses Figma tokens (common.css) and layout hints from calc-2-8-5.css.
+ * - Preserves all calculator functionality and keyboard input.
  */
 function App() {
   const [current, setCurrent] = useState('0');         // string being typed
@@ -123,10 +125,10 @@ function App() {
       if (key === '.') { onDigit('.'); return; }
       if (key === 'Escape') { onClear(); return; }
       if (key === 'Enter' || key === '=') { onEquals(); return; }
-      if (key === '+' ) { onOperator('+'); return; }
-      if (key === '-' ) { onOperator('−'); return; }
-      if (key === '*' ) { onOperator('×'); return; }
-      if (key === '/' ) { onOperator('÷'); return; }
+      if (key === '+') { onOperator('+'); return; }
+      if (key === '-') { onOperator('−'); return; }
+      if (key === '*') { onOperator('×'); return; }
+      if (key === '/') { onOperator('÷'); return; }
     };
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
@@ -157,9 +159,8 @@ function App() {
   return (
     <div className="app" role="application" aria-label="Ocean Professional Calculator">
       <div className="calculator" aria-live="polite">
+        {/* Header area to mimic device frame top */}
         <div className="calc-header">
-          <div className="brand-dot" aria-hidden="true" />
-          <h1 className="calc-title">Calculator</h1>
           <button
             className="close-btn"
             onClick={() => setIsVisible(false)}
@@ -170,6 +171,7 @@ function App() {
           </button>
         </div>
 
+        {/* Display overlayed like Figma positions */}
         <div className="display" aria-label="calculator display">
           <div className="display-screen">
             <div className="display-history" aria-live="polite">
@@ -181,33 +183,51 @@ function App() {
           </div>
         </div>
 
+        {/* Keypad dark rounded container with rows and circular buttons */}
         <div className="grid" role="group" aria-label="calculator keypad">
-          <button className="btn btn-clear" onClick={onClear} aria-label="Clear">AC</button>
-          <button className="btn" onClick={onToggleSign} aria-label="Toggle Sign">+/−</button>
-          <button className="btn" onClick={onPercent} aria-label="Percent">%</button>
-          <button className={`btn btn-operator ${opIs('÷') ? 'active' : ''}`} onClick={() => onOperator('÷')} aria-label="Divide">÷</button>
+          {/* Row top: AC, +/- , %, ÷ (operators color variant) */}
+          <div className="row row-top">
+            <button className="btn btn-clear" onClick={onClear} aria-label="Clear">AC</button>
+            <button className="btn" onClick={onToggleSign} aria-label="Toggle Sign">+/−</button>
+            <button className="btn" onClick={onPercent} aria-label="Percent">%</button>
+            <button className={`btn btn-operator ${opIs('÷') ? 'active' : ''}`} onClick={() => onOperator('÷')} aria-label="Divide">÷</button>
+          </div>
 
-          <button className="btn" onClick={() => onDigit('7')} aria-label="7">7</button>
-          <button className="btn" onClick={() => onDigit('8')} aria-label="8">8</button>
-          <button className="btn" onClick={() => onDigit('9')} aria-label="9">9</button>
-          <button className={`btn btn-operator ${opIs('×') ? 'active' : ''}`} onClick={() => onOperator('×')} aria-label="Multiply">×</button>
+          {/* Row 7 8 9 × */}
+          <div className="row row-789">
+            <button className="btn" onClick={() => onDigit('7')} aria-label="7">7</button>
+            <button className="btn" onClick={() => onDigit('8')} aria-label="8">8</button>
+            <button className="btn" onClick={() => onDigit('9')} aria-label="9">9</button>
+            <button className={`btn btn-operator ${opIs('×') ? 'active' : ''}`} onClick={() => onOperator('×')} aria-label="Multiply">×</button>
+          </div>
 
-          <button className="btn" onClick={() => onDigit('4')} aria-label="4">4</button>
-          <button className="btn" onClick={() => onDigit('5')} aria-label="5">5</button>
-          <button className="btn" onClick={() => onDigit('6')} aria-label="6">6</button>
-          <button className={`btn btn-operator ${opIs('−') ? 'active' : ''}`} onClick={() => onOperator('−')} aria-label="Subtract">−</button>
+          {/* Row 4 5 6 − */}
+          <div className="row row-456">
+            <button className="btn" onClick={() => onDigit('4')} aria-label="4">4</button>
+            <button className="btn" onClick={() => onDigit('5')} aria-label="5">5</button>
+            <button className="btn" onClick={() => onDigit('6')} aria-label="6">6</button>
+            <button className={`btn btn-operator ${opIs('−') ? 'active' : ''}`} onClick={() => onOperator('−')} aria-label="Subtract">−</button>
+          </div>
 
-          <button className="btn" onClick={() => onDigit('1')} aria-label="1">1</button>
-          <button className="btn" onClick={() => onDigit('2')} aria-label="2">2</button>
-          <button className="btn" onClick={() => onDigit('3')} aria-label="3">3</button>
-          <button className={`btn btn-operator ${opIs('+') ? 'active' : ''}`} onClick={() => onOperator('+')} aria-label="Add">+</button>
+          {/* Row 1 2 3 + */}
+          <div className="row row-123">
+            <button className="btn" onClick={() => onDigit('1')} aria-label="1">1</button>
+            <button className="btn" onClick={() => onDigit('2')} aria-label="2">2</button>
+            <button className="btn" onClick={() => onDigit('3')} aria-label="3">3</button>
+            <button className={`btn btn-operator ${opIs('+') ? 'active' : ''}`} onClick={() => onOperator('+')} aria-label="Add">+</button>
+          </div>
 
-          <button className="btn btn-zero" onClick={() => onDigit('0')} aria-label="0">0</button>
-          <button className="btn" onClick={() => onDigit('.')} aria-label="Decimal">.</button>
-          <button className="btn btn-equals" onClick={onEquals} aria-label="Equals">=</button>
+          {/* Row 0 . = */}
+          <div className="row row-0dot">
+            <button className="btn" onClick={() => onDigit('0')} aria-label="0">0</button>
+            <button className="btn" onClick={() => onDigit('.')} aria-label="Decimal">.</button>
+            {/* Backspace omitted in functional app based on current features */}
+            <button className="btn btn-equals" onClick={onEquals} aria-label="Equals">=</button>
+            {/* Fourth position is equals; ensure placement matches layout */}
+          </div>
         </div>
 
-        <div className="calc-footer">
+        <div className="calc-footer" aria-hidden="true">
           Tip: Use your keyboard. Try <kbd>+</kbd> <kbd>-</kbd> <kbd>*</kbd> <kbd>/</kbd> and <kbd>Enter</kbd>.
         </div>
       </div>

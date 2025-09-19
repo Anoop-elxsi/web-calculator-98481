@@ -1,0 +1,70 @@
+:root {
+  /* Colors from design system */
+  --color-ffb2ff: #ffb2ff;
+  --color-78007a: #78007a;
+  --color-ffffff: #ffffff;
+  --color-000000: #000000;
+  --color-313131: #313131;
+  --color-d9d9d9: #d9d9d9;
+  --color-a300a5: #a300a5;
+  --color-ffbfff: #ffbfff;
+  --color-9a9a9a: #9a9a9a;
+  --color-d2d2d2: #d2d2d2;
+  --color-717171: #717171;
+  --color-fffdd7: #fffdd7;
+  --color-ff7a00: #ff7a00;
+  --color-4f4f4f: #4f4f4f;
+
+  /* Typography tokens (sizes/line-heights/weights) */
+  --font-family: "Poppins", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial;
+  --typo-24-size: 30px;  --typo-24-weight: 600;  --typo-24-lh: 45px;  --typo-24-color: var(--color-313131);
+  --typo-25-size: 30px;  --typo-25-weight: 600;  --typo-25-lh: 45px;  --typo-25-color: var(--color-d9d9d9);
+  --typo-26-size: 30px;  --typo-26-weight: 600;  --typo-26-lh: 45px;  --typo-26-color: var(--color-78007a);
+  --typo-27-size: 30px;  --typo-27-weight: 600;  --typo-27-lh: 45px;  --typo-27-color: var(--color-ffffff);
+  --typo-28-size: 39px;  --typo-28-weight: 600;  --typo-28-lh: 58.5px;--typo-28-color: var(--color-313131);
+  --typo-29-size: 24px;  --typo-29-weight: 600;  --typo-29-lh: 36px;  --typo-29-color: var(--color-313131);
+
+  /* Radii */
+  --radius-8: 8px;
+  --radius-34: 34px;
+
+  /* Shadows from design system */
+  /* shadow_2: 0 -5px 12px #313131 (drop shadow) */
+  --shadow-2: 0 -5px 12px 0 var(--color-313131);
+  /* shadow_4 used in some styles */
+  --shadow-4: 4px 4px 0 0 var(--color-313131);
+}
+
+/* Baseline */
+* { box-sizing: border-box; }
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background: var(--color-313131);
+  font-family: var(--font-family);
+  color: var(--color-313131);
+}
+
+.screen {
+  width: 360px;
+  height: 714px;
+  margin: 0 auto;
+  position: relative;
+  background: var(--color-313131); /* style_6 background */
+  border: 8px solid var(--color-ffffff); /* style_6 border */
+  border-radius: var(--radius-34); /* style_6 radius */
+  overflow: hidden;
+}
+
+/* Utility classes for typography */
+.typo-24 { font-size: var(--typo-24-size); line-height: var(--typo-24-lh); font-weight: var(--typo-24-weight); color: var(--typo-24-color); }
+.typo-25 { font-size: var(--typo-25-size); line-height: var(--typo-25-lh); font-weight: var(--typo-25-weight); color: var(--typo-25-color); }
+.typo-26 { font-size: var(--typo-26-size); line-height: var(--typo-26-lh); font-weight: var(--typo-26-weight); color: var(--typo-26-color); }
+.typo-27 { font-size: var(--typo-27-size); line-height: var(--typo-27-lh); font-weight: var(--typo-27-weight); color: var(--typo-27-color); }
+.typo-28 { font-size: var(--typo-28-size); line-height: var(--typo-28-lh); font-weight: var(--typo-28-weight); color: var(--typo-28-color); }
+.typo-29 { font-size: var(--typo-29-size); line-height: var(--typo-29-lh); font-weight: var(--typo-29-weight); color: var(--typo-29-color); }
+
+/* Accessible hiding utility for purely decorative elements (if needed) */
+.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }

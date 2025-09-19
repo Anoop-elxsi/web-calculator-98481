@@ -1,30 +1,52 @@
-/* Ocean Professional Theme Variables */
+/* Ocean Professional + Figma Tokens Bridge */
+
+/* Import Figma token variables by namespacing with CSS vars in this file
+   We will keep existing class names but adapt their values to mimic calc-2-8-5 design. */
+
+/* Tokens mapped from assets/common.css */
 :root {
-  --primary: #2563EB;   /* Blue */
+  --primary: #2563EB;   /* Ocean primary (used minimally in this theme) */
   --secondary: #F59E0B; /* Amber */
   --error: #EF4444;
-  --background: #f9fafb;
-  --surface: #ffffff;
-  --text: #111827;
+
+  /* Figma palette via variables to use inside components */
+  --color-ffb2ff: #ffb2ff;
+  --color-78007a: #78007a;
+  --color-ffffff: #ffffff;
+  --color-000000: #000000;
+  --color-313131: #313131;
+  --color-d9d9d9: #d9d9d9;
+  --color-a300a5: #a300a5;
+  --color-ffbfff: #ffbfff;
+
+  /* Radii */
+  --radius-34: 34px;
+  --radius-8: 8px;
+
+  /* Shadows */
+  --shadow-2: 0 -5px 12px 0 var(--color-313131);
+
+  /* App vars derived to keep previous class structure */
+  --background: var(--color-313131);
+  --surface: var(--color-313131);
+  --text: var(--color-313131);
 
   --shadow-sm: 0 1px 2px rgba(0,0,0,0.06);
   --shadow-md: 0 4px 12px rgba(0,0,0,0.08);
-  --radius: 16px;
+  --radius: var(--radius-34);
   --radius-sm: 10px;
 }
 
 /* Page baseline */
 * { box-sizing: border-box; }
 
-html, body, #root {
-  height: 100%;
-}
+html, body, #root { height: 100%; }
 
 body {
   margin: 0;
-  background: linear-gradient(180deg, rgba(37,99,235,0.08), rgba(249,250,251,1) 40%);
+  background: var(--color-313131);
   color: var(--text);
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  font-family: "Poppins", ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
 }
 
 /* App Container */
@@ -32,200 +54,159 @@ body {
   min-height: 100%;
   display: grid;
   place-items: center;
-  padding: 32px 16px;
+  padding: 24px 12px;
 }
 
-/* Calculator Card */
+/* Calculator Shell mimicking phone frame from calc-2-8-5 */
 .calculator {
-  width: 100%;
-  max-width: 380px;
-  background: var(--surface);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow-md);
+  width: 360px;
+  max-width: 360px;
+  background: var(--color-313131);
+  border: 8px solid var(--color-ffffff);
+  border-radius: var(--radius-34);
+  box-shadow: none; /* design is flat on dark bg */
   overflow: hidden;
-  border: 1px solid rgba(17,24,39,0.06);
+  position: relative;
 }
 
-/* Header / Brand */
+/* Header notch mimic */
 .calc-header {
-  padding: 16px 20px;
-  background: linear-gradient(120deg, rgba(37,99,235,0.08), rgba(245,158,11,0.06));
-  border-bottom: 1px solid rgba(17,24,39,0.06);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  position: relative; /* allow absolute close button */
+  height: 245px;
+  background: var(--color-d9d9d9);
+  border-radius: var(--radius-34) var(--radius-34) 0 0;
+  position: relative;
 }
-
-.brand-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 999px;
-  background: var(--primary);
-  box-shadow: 0 0 0 4px rgba(37,99,235,0.15);
-}
-
-.calc-title {
-  margin: 0;
-  font-size: 14px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #1f2937;
-  font-weight: 700;
-}
-
-/* Close button in header */
+.brand-dot { display: none; } /* hidden in this design */
+.calc-title { display: none; } /* hidden in this design */
 .close-btn {
-  margin-left: auto;
-  margin-right: -4px;
-  appearance: none;
-  border: none;
+  position: absolute;
+  right: 22px;
+  top: 32px;
+  width: 22px;
+  height: 22px;
+  border: 0;
+  border-radius: 6px;
   background: transparent;
-  color: #1f2a44;
-  font-size: 22px;
-  line-height: 1;
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  color: var(--color-78007a);
+  font-size: 18px;
+  line-height: 22px;
   cursor: pointer;
-  transition: background 160ms ease, color 160ms ease, box-shadow 180ms ease, transform 120ms ease;
+}
+.close-btn:hover { background: rgba(255,255,255,0.3); }
+
+/* Small notch line */
+.calc-header::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 10px;
+  width: 29px;
+  height: 4px;
+  background: var(--color-313131);
+  border-radius: var(--radius-8);
+  opacity: 0.6;
 }
 
-.close-btn:hover {
-  background: rgba(37,99,235,0.10);
-  color: #0b3ea8;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 10px rgba(17,24,39,0.08);
-}
-
-.close-btn:active {
-  transform: translateY(0);
-  box-shadow: var(--shadow-sm);
-}
-
-.close-btn:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(37,99,235,0.35);
-}
-
-/* Display */
+/* Display area */
 .display {
-  padding: 24px 20px 12px 20px;
-  background: linear-gradient(180deg, #ffffff, #f7fafc);
+  position: absolute;
+  left: 148px;
+  top: 111px;
+  width: 194px;
+  height: 95px;
+  padding: 0;
+  background: transparent;
 }
-
-.display-screen {
-  background: #0b1220;
-  color: #e5e7eb;
-  border-radius: var(--radius-sm);
-  padding: 18px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), inset 0 -2px 6px rgba(0,0,0,0.35);
-  font-variant-numeric: tabular-nums;
-}
-
+.display-screen { background: transparent; padding: 0; box-shadow: none; color: var(--color-313131); }
 .display-history {
-  min-height: 20px;
-  color: #93a3b8;
-  font-size: 14px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  opacity: 0.9;
+  min-height: 59px;
+  text-align: left;
+  color: var(--color-313131);
+  font-size: 39px; line-height: 58.5px; font-weight: 600;
+  opacity: 1;
 }
-
 .display-current {
-  margin-top: 6px;
-  font-size: 32px;
-  line-height: 1.2;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  font-weight: 700;
-  color: #e7eefc;
+  margin-top: 0;
+  display: block;
+  font-size: 24px; line-height: 36px; font-weight: 600;
+  color: var(--color-313131);
+  text-align: left;
 }
 
-/* Grid */
+/* Keypad container (dark rounded rect with shadow) */
 .grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  padding: 16px 20px 20px 20px;
-  background: linear-gradient(180deg, #ffffff, #f9fafb);
+  position: relative;
+  width: 359px;
+  height: 460px;
+  margin: 0 auto;
+  background: var(--color-313131);
+  border-radius: var(--radius-34);
+  box-shadow: var(--shadow-2);
+  padding: 0;
+  display: block; /* we will absolutely place "buttons" like circulars using CSS grid-like adaptation below for responsiveness */
+  margin-top: 9px; /* aligns just under the header like Figma (254 - 245) */
 }
 
-/* Buttons */
+/* Core circular button baseline */
 .btn {
   appearance: none;
   border: 0;
-  border-radius: 12px;
-  padding: 16px;
-  font-size: 18px;
-  font-weight: 700;
-  color: #111827;
-  background: #eef2ff;
-  box-shadow: var(--shadow-sm), inset 0 1px 0 rgba(255,255,255,0.6);
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  font-size: 30px;
+  font-weight: 600;
+  line-height: 45px;
   cursor: pointer;
   transition: transform 120ms ease, box-shadow 200ms ease, background 200ms ease, color 200ms ease;
-  outline: none;
+  box-shadow: none;
 }
 
-.btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(17,24,39,0.08);
-}
+/* Colors mapped to Figma */
+.btn-clear { background: var(--color-000000); color: var(--color-ffffff); }
+.btn, .btn:not(.btn-clear):not(.btn-operator):not(.btn-equals) { background: var(--color-d9d9d9); color: var(--color-313131); }
+.btn-operator { background: var(--color-ffbfff); color: var(--color-78007a); }
+.btn-equals { background: var(--color-a300a5); color: var(--color-d9d9d9); }
 
-.btn:active {
-  transform: translateY(0);
-  box-shadow: var(--shadow-sm);
-}
+/* Active operator ring (subtle) */
+.btn-operator.active { outline: 3px solid rgba(120,0,122,0.3); outline-offset: -3px; }
 
-/* Variants */
-.btn-operator {
-  background: linear-gradient(180deg, rgba(37,99,235,0.12), rgba(37,99,235,0.06));
-  color: #0b3ea8;
-}
+/* Layout rows based on Figma absolute spacing within .grid area */
+.row { position: absolute; left: 10px; width: 339px; height: 78px; }
+.row-top { top: 20px; }   /* 254px from screen top minus grid's own top => approximate to inside grid */
+.row-789 { top: 108px; }
+.row-456 { top: 196px; }
+.row-123 { top: 284px; }
+.row-0dot { top: 372px; }
 
-.btn-operator.active {
-  background: linear-gradient(180deg, rgba(37,99,235,0.25), rgba(37,99,235,0.12));
-  color: #0a3186;
-  box-shadow: 0 0 0 2px rgba(37,99,235,0.18) inset;
-}
+.row .btn:nth-child(1) { position: absolute; left: 0px; top: 0; }
+.row .btn:nth-child(2) { position: absolute; left: 87px; top: 0; }
+.row .btn:nth-child(3) { position: absolute; left: 174px; top: 0; }
+.row .btn:nth-child(4) { position: absolute; left: 261px; top: 0; }
 
-.btn-equals {
-  background: linear-gradient(180deg, rgba(245,158,11,0.9), rgba(245,158,11,0.8));
-  color: #111827;
-}
-
-.btn-clear {
-  background: #fee2e2;
-  color: #991b1b;
-}
-
-.btn-zero {
-  grid-column: span 2;
-}
+/* Text sizes kept via buttons themselves, no extra label styles needed */
 
 /* Accessibility focus */
 .btn:focus-visible {
-  box-shadow: 0 0 0 3px rgba(37,99,235,0.35);
+  outline: 3px solid rgba(255,255,255,0.6);
+  outline-offset: 2px;
 }
 
-/* Footer hints */
+/* Footer hint: keep minimal spacing below device frame; hide by default to match static mock */
 .calc-footer {
-  padding: 4px 16px 14px;
+  padding: 8px 12px 14px;
   font-size: 12px;
-  color: #6b7280;
+  color: #c7c7c7;
   text-align: center;
 }
 
 kbd {
-  background: #f3f4f6;
+  background: #4a4a4a;
+  color: #fff;
   padding: 2px 6px;
   border-radius: 6px;
-  border: 1px solid #e5e7eb;
+  border: 1px solid #2f2f2f;
   font-weight: 600;
   font-size: 11px;
 }
@@ -233,18 +214,13 @@ kbd {
 /* Minimal reopen button when calculator is hidden */
 .reopen-btn {
   appearance: none;
-  border: 1px solid rgba(17,24,39,0.08);
-  background: linear-gradient(180deg, rgba(37,99,235,0.10), rgba(37,99,235,0.06));
-  color: #0b3ea8;
+  border: 1px solid #2f2f2f;
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  color: #ffffff;
   padding: 12px 16px;
   border-radius: 12px;
   font-weight: 700;
   box-shadow: var(--shadow-sm);
   cursor: pointer;
-  transition: transform 120ms ease, box-shadow 200ms ease, background 200ms ease, color 200ms ease;
 }
-
-.reopen-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(17,24,39,0.08);
-}
+.reopen-btn:hover { transform: translateY(-1px); }
